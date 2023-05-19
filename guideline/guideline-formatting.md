@@ -93,7 +93,132 @@ General guideline to follow when developing the application.
 
 ---
 
-Stay tuned.
+## Python style
+- Use underscores, not camelCase, for variable, function and method names 
+
+```python
+# bad
+poll.getUniqueVoters()
+
+# good
+poll.get_unique_voters()
+```
+
+- Use InitialCaps for class names
+```python
+class MyModel(models.Model):
+    DIRECTION_UP = "U"
+    DIRECTION_DOWN = "D"
+```
+
+
+## Import Orders in Python Files
+
+- Put imports in these groups: **standard library, third-party libraries, other Django components, local Django component**. Sort lines in each group alphabetically by the full module name. Place all **import module statements before from module** import objects in each section. Use absolute imports for other Django components and relative imports for local components.
+
+- On each line, alphabetize the items with the upper case items grouped before the lowercase items.
+
+
+Use a single blank line between the last import and any module level code, and use two blank lines above the first function or class.
+
+For example (comments are for explanatory purposes only):
+
+```python
+# System libraries
+import json
+from itertools import chain
+
+# Third-party libraries
+import bcrypt
+
+# Django
+from rest_framework.exceptions import APIException, ValidationError, PermissionDenied
+from django.utils import timezone
+from django.db import transaction, IntegrityError, OperationalError
+
+# Local Django
+from wallet import ewallet_service
+from core.models import User
+from property.models import Outlet
+
+# Current App module
+from .models import Deal, Coupon
+
+
+class Example:
+    ...
+
+```
+- Use convenience imports whenever available. For example, do this
+
+```python 
+# bad
+from django.views.generic.base import View
+
+# good
+from django.views import View
+```
+
+## URL naming
+URLs are named with small capital letters and with dashes.
+
+```python
+# bad
+router.register(r'topUpInvoices', TopUpInvoiceViewSet)
+
+# bad
+router.register(r'top_up_invoices', TopUpInvoiceViewSet)
+
+# good
+router.register(r'top-up-invoices', TopUpInvoiceViewSet)
+
+```
+
+## Model style
+- Field names should be all lowercase, using underscores instead of camelCase.
+
+```python
+# bad
+class Person(models.Model):
+    FirstName = models.CharField(max_length=20)
+    Last_Name = models.CharField(max_length=40)
+
+# good
+class Person(models.Model):
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=40)
+```
+
+- The **class Meta** should appear after the fields are defined, with a single blank line separating the fields and the class definition.
+
+```python
+# bad
+class Person(models.Model):
+    class Meta:
+        verbose_name_plural = "people"
+
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=40)
+
+# good
+class Person(models.Model):
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=40)
+
+    class Meta:
+        verbose_name_plural = "people"
+```
+
+## Migration File Naming
+- To improve the naming of migration files in Python, it's recommended to use meaningful names that reflect the purpose of the migration. Here's an example of how to improve the naming of migration files:
+
+```python
+# bad
+0002_auto_20230519.py
+
+# good
+0002_alter_maintenancecategory_options.py
+```
 
 <br/><br/><br/>
 
@@ -121,7 +246,7 @@ Stay tuned.
     - PLEASE MAKE SURE YOUR CODE LOGIC IS WORK BEFORE PUSH
     ```
 
-8. Once all good, viola! You are ready to commit/push your changes to remote server. **Do not push your changes to remote server if you are not sure about your code.**
+8. Once all good, viola! You are ready to commit/push your changes to remote server. **Do not push your changes to remote server if you are not sure about your code.** Additionally, remember not to include sensitive information, such as **credentials**, when committing changes to GitHub
 
 <p align="center">
 <img src="..\images\meme\git-push-and-run-banned.jpg" alt="git push and run banned" style="zoom:50%;" />
