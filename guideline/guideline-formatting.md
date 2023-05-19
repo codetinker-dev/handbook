@@ -87,13 +87,25 @@ General guideline to follow when developing the application.
 1. Use FUSE confirmation modal only
 2. **For important actions, has a modal popped up and ask the user for double confirmation.**
 
+<br/>
+
+### **Translation**
+Here's the translation format applied to the components:
+
+
+1. `module.component.name`: Component Name
+2. `module.component.action.name` Button 
+3. `module.component.form.required`: Form
+4. `module.component.notification.success` Snackbar Success Notification 
+5. `module.component.dialog.title`: Dialog Title
+6. `module.enum_option_translate`: Enum Option
 <br/><br/><br/>
 
 ## General (Backend)
 
 ---
 
-## Python style
+### **Python style**
 - Use underscores, not camelCase, for variable, function and method names 
 
 ```python
@@ -111,17 +123,14 @@ class MyModel(models.Model):
     DIRECTION_DOWN = "D"
 ```
 
+<br/>
 
-## Import Orders in Python Files
+### **Import Orders in Python Files**
 
 - Put imports in these groups: **standard library, third-party libraries, other Django components, local Django component**. Sort lines in each group alphabetically by the full module name. Place all **import module statements before from module** import objects in each section. Use absolute imports for other Django components and relative imports for local components.
 
-- On each line, alphabetize the items with the upper case items grouped before the lowercase items.
-
-
 Use a single blank line between the last import and any module level code, and use two blank lines above the first function or class.
 
-For example (comments are for explanatory purposes only):
 
 ```python
 # System libraries
@@ -132,12 +141,10 @@ from itertools import chain
 import bcrypt
 
 # Django
-from rest_framework.exceptions import APIException, ValidationError, PermissionDenied
+from django.db import IntegrityError, OperationalError, transaction
 from django.utils import timezone
-from django.db import transaction, IntegrityError, OperationalError
 
 # Local Django
-from wallet import ewallet_service
 from core.models import User
 from property.models import Outlet
 
@@ -159,7 +166,9 @@ from django.views.generic.base import View
 from django.views import View
 ```
 
-## URL naming
+<br/>
+
+### **URL naming**
 URLs are named with small capital letters and with dashes.
 
 ```python
@@ -174,7 +183,9 @@ router.register(r'top-up-invoices', TopUpInvoiceViewSet)
 
 ```
 
-## Model style
+<br/>
+
+### **Model style**
 - Field names should be all lowercase, using underscores instead of camelCase.
 
 ```python
@@ -209,7 +220,9 @@ class Person(models.Model):
         verbose_name_plural = "people"
 ```
 
-## Migration File Naming
+<br/>
+
+### **Migration File Naming**
 - To improve the naming of migration files in Python, it's recommended to use meaningful names that reflect the purpose of the migration. Here's an example of how to improve the naming of migration files:
 
 ```python
