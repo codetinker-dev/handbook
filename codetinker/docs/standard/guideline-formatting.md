@@ -1,3 +1,12 @@
+---
+id: standard-guideline
+title: Code Standard
+tags:
+  - Code
+  - Standard
+sidebar_position: 2
+---
+
 # Guideline
 
 General guideline to follow when developing the application.
