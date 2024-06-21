@@ -1,0 +1,8 @@
+{
+  "label": "Angular",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "This document provides guidelines and format standards to follow when working with Angular. It covers best practices for structuring your code, naming conventions, component architecture, and more."
+  }
+}

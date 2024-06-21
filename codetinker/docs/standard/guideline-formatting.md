@@ -1,8 +1,15 @@
+---
+id: standard-guideline
+title: Codetinker Standard
+tags:
+  - Code
+  - Standard
+sidebar_position: 2
+---
+
 # Guideline
 
 General guideline to follow when developing the application.
-
-<br/><br/>
 
 ## General (Frontend)
 
@@ -14,8 +21,6 @@ General guideline to follow when developing the application.
 4. Alignment
 5. Only show data that are **informative** to user (think from the user journey), not to confuse user, user DO NOT and ARE NOT interested to know the technical details
 
-<br/>
-
 ### **Listing**
 
 1. **DO NOT color the cell wording if it is not clickable & redirectable** to another page (avoid confusion)
@@ -25,10 +30,7 @@ General guideline to follow when developing the application.
     - Note: Not applicable to extremely dynamic content
 5. DateTime format in table column:
 
-<p align="center">
-<img src="..\images\standard\datatable-datetime-format.JPG" alt="datatable datetime format" style="zoom:50%;" />
-</p>
-<br/><br/>
+![alt text](../../static/img/datatable-datetime-format.JPG)
 
 ### **Form**
 
@@ -49,7 +51,6 @@ General guideline to follow when developing the application.
 2. **'Save' button is disabled when no value changes** at the very beginning
 3. `<mat-select>`: make good use of `enum` as options
 4. Constant value (e.g. created_at/date_joined): shown at right panel, if any
-   <br/><br/>
 
 ### **Input Field**
 
@@ -80,14 +81,10 @@ General guideline to follow when developing the application.
 1. Button must be disabled and add spinner during loading, if button is link to an API
 2. For normal button without linkage to an API, no need disabled and spinner
 
-<br/>
-
 ### **Modal**
 
 1. Use FUSE confirmation modal only
 2. **For important actions, has a modal popped up and ask the user for double confirmation.**
-
-<br/>
 
 ### **Translation**
 Here's the translation format applied to the components:
@@ -99,7 +96,6 @@ Here's the translation format applied to the components:
 4. `module.component.notification.success` Snackbar Success Notification 
 5. `module.component.dialog.title`: Dialog Title
 6. `module.enum_option_translate`: Enum Option
-<br/><br/><br/>
 
 ## General (Backend)
 
@@ -122,8 +118,6 @@ class MyModel(models.Model):
     DIRECTION_UP = "U"
     DIRECTION_DOWN = "D"
 ```
-
-<br/>
 
 ### **Import Orders in Python Files**
 
@@ -166,8 +160,6 @@ from django.views.generic.base import View
 from django.views import View
 ```
 
-<br/>
-
 ### **URL naming**
 URLs are named with small capital letters and with dashes.
 
@@ -183,7 +175,6 @@ router.register(r'top-up-invoices', TopUpInvoiceViewSet)
 
 ```
 
-<br/>
 
 ### **Model style**
 - Field names should be all lowercase, using underscores instead of camelCase.
@@ -220,8 +211,6 @@ class Person(models.Model):
         verbose_name_plural = "people"
 ```
 
-<br/>
-
 ### **Migration File Naming**
 - To improve the naming of migration files in Python, it's recommended to use meaningful names that reflect the purpose of the migration. Here's an example of how to improve the naming of migration files:
 
@@ -232,8 +221,6 @@ class Person(models.Model):
 # good
 0002_alter_maintenancecategory_options.py
 ```
-
-<br/><br/><br/>
 
 ## Before Commit/Push Your Changes to Remote Server
 
@@ -248,19 +235,17 @@ class Person(models.Model):
 5. Remove unused code - imports, variables, functions
 6. Remove console.log()
 7. Test your code
-
     - Make sure your code is working as expected (e.g: no error at console / during API call). Possible examples:
         - make sure datatable is able to scroll horizontally, `per_page` parameter is correct etc
     - Make sure your code is **not breaking other parts** of the application
 
-    ```
-    Sorrowful feedbacks from our anonymous colleagues:
+    <br/>
+    :::warning[Sorrowful feedbacks from our anonymous colleagues:]
     - PLEASE DONT PUSH UNCOMPLETED CODE LIKE FUNCTION CANNOT WORK, BUTTON CANNOT CLICK OR CONSOLE THERE”S ALOT OF RED STUFF
     - PLEASE MAKE SURE YOUR CODE LOGIC IS WORK BEFORE PUSH
-    ```
+    :::
+   
 
 8. Once all good, viola! You are ready to commit/push your changes to remote server. **Do not push your changes to remote server if you are not sure about your code.** Additionally, remember not to include sensitive information, such as **credentials**, when committing changes to GitHub
 
-<p align="center">
-<img src="..\images\meme\git-push-and-run-banned.jpg" alt="git push and run banned" style="zoom:50%;" />
-</p>
+![alt text](../../static/memes/git-push-and-run-banned.jpg)
