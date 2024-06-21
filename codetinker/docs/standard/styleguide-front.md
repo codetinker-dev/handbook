@@ -1,4 +1,14 @@
-#https://infinum.com/handbook/frontend/styleguide
+---
+id: standard-guideline-front
+title: Front-end standard
+tags:
+  - Code
+  - Standard
+sidebar_position: 2
+---
+
+
+https://infinum.com/handbook/frontend/styleguide
 
 # References
 
@@ -355,7 +365,7 @@ In case the expression spans over multiple lines, wrap it in parentheses for bet
 [1, 2, 3].map((number) => `As time went by, the string containing the ${number} became much ` + 'longer. So we needed to break it over multiple lines.');
 ```
 
-Avoid confusing arrow function syntax (=>) with comparison operators (<=, >=).
+Avoid confusing arrow function syntax `(=>)` with comparison operators `(<=, >=)`.
 
 ```javascript
 // bad

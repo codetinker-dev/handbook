@@ -1,6 +1,6 @@
 ---
 id: standard-guideline
-title: Code Standard
+title: Codetinker Standard
 tags:
   - Code
   - Standard
