@@ -1,3 +1,11 @@
+[INFO] Use the correct node version before start:
+
+  - Window
+    - refer .nvmrc file to setup correct node version
+
+  - Mac
+    - `nvm use` To read the node version from .nvmrc
+
 [INFO] Inside that directory, you can run several commands:
 
   `npm start`
