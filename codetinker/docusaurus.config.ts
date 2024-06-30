@@ -144,6 +144,14 @@ const config: Config = {
       additionalLanguages: ['markdown',],
     },
   } satisfies Preset.ThemeConfig,
+  plugins: [
+    [
+      'docusaurus2-dotenv',
+      {
+        systemvars: true
+      }
+    ]
+  ],
 };
 
 export default config;
