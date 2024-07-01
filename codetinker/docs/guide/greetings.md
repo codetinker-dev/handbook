@@ -4,7 +4,7 @@ title: A doc with tags
 tags:
   - Demo
   - Getting started
-sidebar_position: 1
+sidebar_position: 3
 ---
 
 ---

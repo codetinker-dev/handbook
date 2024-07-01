@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'CodeTinker',
-  tagline: 'Dinosaurs are cool',
+  tagline: 'Welcome to the CodeTinker Docs!',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -101,42 +101,46 @@ const config: Config = {
           items: [
             {
               label: 'Tutorial',
-              to: '/',
+              to: '/category/tutorial---docs',
             },
           ],
         },
         {
           title: 'Community',
           items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
             // {
-            //   label: 'Blog',
-            //   to: '/blog',
+            //   label: 'Stack Overflow',
+            //   href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+            // },
+            // {
+            //   label: 'Discord',
+            //   href: 'https://discordapp.com/invite/docusaurus',
+            // },
+            // {
+            //   label: 'Twitter',
+            //   href: 'https://twitter.com/docusaurus',
             // },
             {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
-            },
+              label: 'Facebook',
+              href: 'https://www.facebook.com/mycodetinker',
+            }
           ],
         },
+        // {
+        //   title: 'More',
+        //   items: [
+        //     {
+        //       label: 'Blog',
+        //       to: '/blog',
+        //     },
+        //     {
+        //       label: 'GitHub',
+        //       href: 'https://github.com/facebook/docusaurus',
+        //     },
+        //   ],
+        // },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Codetinker, Inc. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
