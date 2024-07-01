@@ -149,13 +149,15 @@ const config: Config = {
     },
   } satisfies Preset.ThemeConfig,
   plugins: [
+    // Other plugins
     [
-      'docusaurus2-dotenv',
+      'docusaurus-plugin-dotenv',
       {
-        systemvars: true
+          path: "./.env", 
+          systemvars: true, 
       }
     ]
-  ],
+]
 };
 
 export default config;
