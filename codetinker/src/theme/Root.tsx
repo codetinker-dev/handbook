@@ -2,7 +2,7 @@ import React, { useRef, useState, LegacyRef, RefObject } from "react";
 import { signInWithGoogle, logout, auth, basicSignIn } from "./firebase";
 import "../css/login.css";
 import Loading from "./Loading";
-import logo from "../../static/img/logo.png";
+import logo from "../../static/img/logo-full.png";
 
 // Default implementation, that you can customize
 export default function Root({ children }) {
