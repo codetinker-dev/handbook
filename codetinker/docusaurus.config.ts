@@ -85,6 +85,12 @@ const config: Config = {
           position: 'left',
           label: 'Standard',
         },
+        {
+          type: 'docSidebar',
+          sidebarId: 'obsSdpSidebar',
+          position: 'left',
+          label: 'OBS-SDP',
+        },
         // {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/facebook/docusaurus',
