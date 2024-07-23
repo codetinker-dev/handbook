@@ -41,8 +41,15 @@ sidebar_position: 1
    offset_x = 7
    offset_y = 18
    ```
-5. Set `skip_pin=True` when it is high-rise.
-6. Ensure you can build `map.py` successfully and get a message like:
+5. To only update a single unit:
+    ```python
+    unit_offset['Lot_No'] = dict(x=(left, right), y=(top, bottom))
+
+    unit_offset['EE-F3/001'] = dict(x=-7, y=-9)
+    unit_offset['EE-F3/010'] = dict(x=7, y=7)
+    ```
+6. Set `skip_pin=True` when it is high-rise.
+7. Ensure you can build `map.py` successfully and get a message like:
    ![alt text](../../static/img/no_extra_unit.png)
 
 ### **Step 3: Setup Map in Front and Front-Admin**
