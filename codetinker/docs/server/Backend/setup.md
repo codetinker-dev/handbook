@@ -128,7 +128,7 @@ By leaving the passphrase fields empty, you are opting not to set a password for
     $ sudo ln -s /etc/nginx/sites-available/project-name /etc/nginx/sites-enabled/
     ```
 
-2. The locate the file file and cd it
+2. The locate the file and cd it
     ```sh
     $ cd /etc
     $ cd /nginx/sites-enabled
