@@ -67,12 +67,6 @@ const config: Config = {
         src: 'img/logo.png',
       },
       items: [
-        // {
-        //   type: 'docSidebar',
-        //   sidebarId: 'tutorialSidebar',
-        //   position: 'left',
-        //   label: 'Tutorial',
-        // },
         {
           type: 'docSidebar',
           sidebarId: 'guideSidebar',
@@ -96,6 +90,12 @@ const config: Config = {
           sidebarId: 'server',
           position: 'left',
           label: 'Server',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'stickymeSidebar',  // sidebar id in sidebar.js
+          position: 'left',
+          label: 'StickyMe',
         },
         // {to: '/blog', label: 'Blog', position: 'left'},
         {

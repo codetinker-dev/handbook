@@ -1,0 +1,8 @@
+{
+  "label": "StickyMe",
+  "position": 3,
+  "link": {
+    "type": "generated-index",
+    "description": "Setting up a loyalty program involves integrating functionalities across different components of your system, including the customer app, admin panel, merchant app, and the backend. Here’s a high-level breakdown of how you can set up a loyalty program for each component:"
+  }
+}
