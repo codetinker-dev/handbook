@@ -40,7 +40,7 @@ This guide provides comprehensive instructions for configuring the Universal Adm
 ### Step 3: Create Merchant:
 * <b>Go to the Merchant Section</b> and create a new merchant entry.
 
-![alt text](../../static/img/merchant.png)
+![alt text](../../static/img/merchant-.png)
 
 ### Step 4: Create Outlet:
 * <b>Create Outlet</b>: Define the outlet details.
@@ -57,7 +57,7 @@ This guide provides comprehensive instructions for configuring the Universal Adm
 
 * Access StickyMe Central Admin: Navigate to the [StickyMe Central Admin Panel](https://stickyme-central.goecom.my/admin).
 
-* <b>Create Merchant Endpoint</b>: Define the new client's endpoint.
+* Create Merchant Endpoint: Define the new client's endpoint. Add new client's merchant code based on [StickyMe Central Merchant Account](https://docs.google.com/spreadsheets/d/1aHgovM-tFv1tXEAgkNvlWhcqnddYMj-Lt3FXz8dub9Q/edit?gid=46520131#gid=46520131).
 
 ![alt text](../../static/img/merchant_endpoint.png)
 
