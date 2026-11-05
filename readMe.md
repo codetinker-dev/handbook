@@ -26,3 +26,7 @@ We recommend that you begin by typing:
   `npm start`
 
 Happy building awesome websites!
+
+## GitHub Pages deployment
+
+See [GITHUB_PAGES_DEPLOYMENT.md](GITHUB_PAGES_DEPLOYMENT.md) for the complete reusable GitHub Actions and Docusaurus setup guide.
