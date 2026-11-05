@@ -1,57 +1,74 @@
-import React, { useRef, useState, LegacyRef, RefObject } from "react";
-import { signInWithGoogle, logout, auth, basicSignIn } from "./firebase";
+import React, {FormEvent, ReactNode, useEffect, useRef, useState} from "react";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import "../css/login.css";
 import Loading from "./Loading";
-import logo from "../../static/img/logo-full.png";
+import {ChaseUser, getCurrentUser, signIn} from "./auth";
 
-// Default implementation, that you can customize
-export default function Root({ children }) {
-  const [userAuth, setUserAuth] = useState(null);
+type RootProps = {
+  children: ReactNode;
+};
+
+export default function Root({children}: RootProps) {
+  const {siteConfig} = useDocusaurusContext();
+  const apiUrl = siteConfig.customFields?.backendApiUrl as string;
+  const logoUrl = useBaseUrl("/img/logo-full.png");
+  const [userAuth, setUserAuth] = useState<ChaseUser | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
-  const emailRef: LegacyRef<HTMLInputElement> = useRef(null);
-  const passwordRef: RefObject<HTMLInputElement> = useRef(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
-  auth.onAuthStateChanged(async function (user) {
-    if (user !== null) {
-      setUserAuth(user);
-    }
-
-    setAuthLoading(false);
-  });
-
-  const isAllow = () => {
-    return userAuth?.email;
-  };
+  useEffect(() => {
+    getCurrentUser(apiUrl)
+      .then(setUserAuth)
+      .catch(() => setUserAuth(null))
+      .finally(() => setAuthLoading(false));
+  }, [apiUrl]);
 
   if (authLoading) {
     return (
       <>
         <Loading />
-        <div style={{ display: "none" }}>{children}</div>
+        <div style={{display: "none"}}>{children}</div>
       </>
     );
   }
 
-  const handleLogin = (data) => {
-    console.log({
-      email: emailRef.current?.value,
-      password: passwordRef.current?.value,
-    });
-    basicSignIn(emailRef.current?.value, passwordRef.current?.value);
+  const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoginError("");
+    setLoginLoading(true);
+
+    try {
+      const user = await signIn(
+        apiUrl,
+        emailRef.current?.value.trim() ?? "",
+        passwordRef.current?.value ?? "",
+      );
+      setUserAuth(user);
+    } catch (error) {
+      setLoginError(
+        error instanceof Error ? error.message : "Unable to sign in.",
+      );
+    } finally {
+      setLoginLoading(false);
+    }
   };
 
   return (
     <React.Fragment>
-      {isAllow() ? (
+      {userAuth ? (
         <>{children}</>
       ) : (
         <div className="login">
           <div className="login__container">
             <div className="logo">
-              <img src={logo} alt="Logo" className="logo-image"/>
+              <img src={logoUrl} alt="Logo" className="logo-image" />
             </div>
-            <div className="form">
+            <form className="form" onSubmit={handleLogin}>
               <div className="form-field">
                 <label>Email</label>
                 <input
@@ -59,6 +76,8 @@ export default function Root({ children }) {
                   placeholder="Email"
                   ref={emailRef}
                   className="input-style"
+                  autoComplete="username"
+                  required
                 />
               </div>
               <div className="form-field">
@@ -68,18 +87,23 @@ export default function Root({ children }) {
                   placeholder="Password"
                   ref={passwordRef}
                   className="input-style"
+                  autoComplete="current-password"
+                  required
                 />
               </div>
+              {loginError ? (
+                <div className="login__error" role="alert">
+                  {loginError}
+                </div>
+              ) : null}
               <button
+                type="submit"
                 className="login__btn login__submit"
-                onClick={handleLogin}
+                disabled={loginLoading}
               >
-                Login
+                {loginLoading ? "Logging in…" : "Login"}
               </button>
-            </div>
-            {/* <button className="login__btn login__google" onClick={handleLogin}>
-              Login with Google
-            </button> */}
+            </form>
           </div>
         </div>
       )}

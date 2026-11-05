@@ -8,15 +8,19 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://wiki.orderplan.app',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'CodeTinker', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'codetinker-dev',
+  projectName: 'handbook',
+
+  customFields: {
+    backendApiUrl: process.env.BACKEND_API_URL || 'http://localhost:8000/v1',
+  },
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -38,8 +42,7 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/codetinker-dev/handbook/tree/master/codetinker/',
         },
         blog: false,
         // blog: {
@@ -99,7 +102,7 @@ const config: Config = {
         },
         // {to: '/blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/codetinker-dev/handbook',
           label: 'GitHub',
           position: 'right',
         },
@@ -160,16 +163,6 @@ const config: Config = {
       additionalLanguages: ['markdown',],
     },
   } satisfies Preset.ThemeConfig,
-  plugins: [
-    // Other plugins
-    [
-      'docusaurus-plugin-dotenv',
-      {
-          path: "./.env", 
-          systemvars: true, 
-      }
-    ]
-]
 };
 
 export default config;
