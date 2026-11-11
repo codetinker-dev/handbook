@@ -7,11 +7,9 @@ const config: Config = {
   tagline: "Welcome to the Codetinker Handbook!",
   favicon: "img/favicon.ico",
 
-  // Set the production url of your site here
-  url: "https://codetinker-dev.github.io",
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/handbook/",
+  // GitHub Actions supplies these values for the production server.
+  url: process.env.HANDBOOK_URL || "http://localhost:3000",
+  baseUrl: process.env.HANDBOOK_BASE_URL || "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.

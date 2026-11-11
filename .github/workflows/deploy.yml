@@ -1,9 +1,9 @@
-name: Deploy handbook to GitHub Pages
+name: Build and deploy handbook
 
 on:
   push:
     branches:
-      - master
+      - production
     paths:
       - "codetinker/**"
       - ".github/workflows/deploy.yml"
@@ -11,25 +11,21 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: handbook-production
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     defaults:
       run:
         working-directory: codetinker
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
 
       - uses: actions/setup-node@v4
         with:
@@ -46,21 +42,74 @@ jobs:
       - name: Build Docusaurus
         env:
           BACKEND_API_URL: ${{ vars.BACKEND_API_URL }}
+          HANDBOOK_BASE_URL: ${{ vars.HANDBOOK_BASE_URL }}
+          HANDBOOK_URL: ${{ vars.HANDBOOK_URL }}
         run: npm run build
 
-      - name: Upload website
-        uses: actions/upload-pages-artifact@v3
+      - name: Package website
+        run: tar -C build -czf ../handbook-build.tar.gz .
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
         with:
-          path: codetinker/build
+          name: handbook-${{ github.sha }}
+          path: codetinker/handbook-build.tar.gz
+          if-no-files-found: error
+          retention-days: 7
 
   deploy:
+    if: ${{ vars.HANDBOOK_DEPLOY_ENABLED == 'true' }}
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      name: handbook-production
 
     steps:
-      - name: Deploy website
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: handbook-${{ github.sha }}
+
+      - name: Configure SSH
+        env:
+          SSH_KNOWN_HOSTS: ${{ vars.HANDBOOK_SSH_KNOWN_HOSTS }}
+          SSH_PRIVATE_KEY: ${{ secrets.HANDBOOK_SSH_PRIVATE_KEY }}
+        run: |
+          : "${SSH_KNOWN_HOSTS:?Set the HANDBOOK_SSH_KNOWN_HOSTS repository variable}"
+          : "${SSH_PRIVATE_KEY:?Set the HANDBOOK_SSH_PRIVATE_KEY repository secret}"
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          (umask 077 && printf '%s\n' "$SSH_PRIVATE_KEY" > "$HOME/.ssh/handbook_deploy")
+
+      - name: Upload release files
+        env:
+          SSH_HOST: ${{ vars.HANDBOOK_SSH_HOST }}
+          SSH_USER: ${{ vars.HANDBOOK_SSH_USER }}
+        run: |
+          : "${SSH_HOST:?Set the HANDBOOK_SSH_HOST repository variable}"
+          : "${SSH_USER:?Set the HANDBOOK_SSH_USER repository variable}"
+          scp -i "$HOME/.ssh/handbook_deploy" -o BatchMode=yes -o IdentitiesOnly=yes \
+            handbook-build.tar.gz script/deploy-handbook.sh \
+            "$SSH_USER@$SSH_HOST:/tmp/"
+
+      - name: Activate release
+        env:
+          DEPLOY_PATH: ${{ vars.HANDBOOK_DEPLOY_PATH }}
+          SSH_HOST: ${{ vars.HANDBOOK_SSH_HOST }}
+          SSH_USER: ${{ vars.HANDBOOK_SSH_USER }}
+        run: |
+          : "${DEPLOY_PATH:?Set the HANDBOOK_DEPLOY_PATH repository variable}"
+          ssh -T -i "$HOME/.ssh/handbook_deploy" -o BatchMode=yes -o IdentitiesOnly=yes \
+            "$SSH_USER@$SSH_HOST" \
+            "bash /tmp/deploy-handbook.sh '$GITHUB_SHA' '$DEPLOY_PATH' 5"
+
+      - name: Verify deployed website
+        if: ${{ vars.HANDBOOK_HEALTHCHECK_URL != '' }}
+        env:
+          HEALTHCHECK_URL: ${{ vars.HANDBOOK_HEALTHCHECK_URL }}
+        run: curl --fail --location --retry 5 --retry-delay 2 "$HEALTHCHECK_URL"
