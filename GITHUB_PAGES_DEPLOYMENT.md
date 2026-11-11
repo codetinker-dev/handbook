@@ -208,6 +208,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -352,6 +355,13 @@ Ensure `package-lock.json` is committed and `cache-dependency-path` points to it
 ### Build succeeds but deployment fails
 
 Confirm that **Settings** > **Pages** uses **GitHub Actions** as its source and that the workflow has `pages: write` and `id-token: write` permissions.
+
+If `actions/deploy-pages` reports `HttpError: Not Found` or status `404`, GitHub
+Pages has not been enabled for the repository. An administrator must perform the
+one-time setup in **Settings** > **Pages** by selecting **GitHub Actions** as the
+publishing source, then rerun the failed workflow. The commit author's Git email
+address does not control deployment authorization; the workflow uses the
+repository's `GITHUB_TOKEN` and the permissions declared in the workflow.
 
 ## Final structure
 
