@@ -47,7 +47,7 @@ jobs:
         run: npm run build
 
       - name: Package website
-        run: tar -C build -czf ../handbook-build.tar.gz .
+        run: tar -C build -czf handbook-build.tar.gz .
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
