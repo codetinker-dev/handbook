@@ -7,6 +7,12 @@ on:
     paths:
       - "codetinker/**"
       - ".github/workflows/deploy.yml"
+  pull_request:
+    branches:
+      - production
+    paths:
+      - "codetinker/**"
+      - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
 permissions:
@@ -39,6 +45,9 @@ jobs:
       - name: Type-check
         run: npm run typecheck
 
+      - name: Check media file sizes
+        run: npm run check:media
+
       - name: Build Docusaurus
         env:
           BACKEND_API_URL: ${{ vars.BACKEND_API_URL }}
@@ -58,7 +67,7 @@ jobs:
           retention-days: 7
 
   deploy:
-    if: ${{ vars.HANDBOOK_DEPLOY_ENABLED == 'true' }}
+    if: ${{ github.event_name == 'push' && vars.HANDBOOK_DEPLOY_ENABLED == 'true' }}
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10

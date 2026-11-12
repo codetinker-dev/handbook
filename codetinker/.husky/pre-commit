@@ -1,0 +1,22 @@
+#!/bin/sh
+cd codetinker || exit 1
+
+# GUI applications such as VS Code may not inherit the shell PATH created by
+# nvm. Load nvm here so commits made through the Source Control panel can find
+# Node.js and npm too.
+if ! command -v npm >/dev/null 2>&1; then
+  NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+  export NVM_DIR
+
+  if [ -s "$NVM_DIR/nvm.sh" ]; then
+    . "$NVM_DIR/nvm.sh"
+    nvm use --silent >/dev/null 2>&1 || true
+  fi
+fi
+
+if ! command -v npm >/dev/null 2>&1; then
+  echo "Media check could not find npm. Install Node.js or configure nvm, then restart VS Code." >&2
+  exit 1
+fi
+
+npm run check:media:staged
