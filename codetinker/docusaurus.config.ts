@@ -153,7 +153,7 @@ const config: Config = {
         //   ],
         // },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Codetinker, Inc. Built with Docusaurus.<br />Version 26.1111.1`,
+      copyright: `Copyright © ${new Date().getFullYear()} Codetinker, Inc. Built with Docusaurus.<br />Version 26.1113.0`,
     },
     prism: {
       theme: prismThemes.github,
